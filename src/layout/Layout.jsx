@@ -1,5 +1,8 @@
 export default function Layout () {
-    <div>
+    return (
+        <div>
         <h1>Layout</h1>
-    </div>
+        </div>
+    )
+    
 }
