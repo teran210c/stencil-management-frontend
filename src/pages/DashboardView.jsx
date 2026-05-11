@@ -48,6 +48,27 @@ export default function DashboardView() {
                 </div>
 
             </div>
+            <div className="d-flex">
+                <div
+                    className="p-4 rounded-3 shadow-sm"
+                    style={{
+                        backgroundColor: "#FFFFFF",
+                        width: "500px",
+                        margin: "30px"
+                    }}
+                >
+                    Expiring Stencils
+                </div>
+                <div
+                    className="p-4 rounded-3 shadow-sm" 
+                    style={{
+                        backgroundColor: "#FFFFFF",
+                        marginTop: "30px"
+                    }}
+                >
+                    Recent Activity
+                </div>
+            </div>
         </div>
     )
 }
