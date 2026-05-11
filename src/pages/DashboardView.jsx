@@ -6,7 +6,48 @@ export default function DashboardView() {
                 backgroundColor: "#F1F5F9"
             }}
         >
-            Dashboardview
+            <h1>Dashboard</h1>
+            <div
+                className="d-flex pt-4 justify-content-around"
+            >
+                <div 
+                    className="p-4 rounded-3 shadow-sm"
+                    style={{
+                        backgroundColor: "#FFFFFF",
+                        width: "150px"
+                    }}
+                >
+                    Tool stencils
+                </div>
+                <div 
+                    className="p-4 rounded-3 shadow-sm"
+                    style={{
+                        backgroundColor: "#FFFFFF",
+                        width: "150px"
+                    }}
+                >
+                    Approved
+                </div>
+                <div 
+                    className="p-4 rounded-3 shadow-sm"
+                    style={{
+                        backgroundColor: "#FFFFFF",
+                        width: "150px"
+                    }}
+                >
+                    Expiring
+                </div>
+                <div 
+                    className="p-4 rounded-3 shadow-sm"
+                    style={{
+                        backgroundColor: "#FFFFFF",
+                        width: "150px"
+                    }}
+                >
+                    Expired
+                </div>
+
+            </div>
         </div>
     )
 }
