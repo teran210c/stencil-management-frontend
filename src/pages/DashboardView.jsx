@@ -1,6 +1,6 @@
 import ExpiringStencils from "../components/ExpiringStencils";
 import KpiSection from "../components/KpiSection";
-import RecnetActivity from "../components/RecentActivity";
+import RecentActivity from "../components/RecentActivity";
 
 export default function DashboardView() {
     const kpiCards = [
@@ -60,7 +60,7 @@ export default function DashboardView() {
         }
     ]
 
-    const activity = [
+    const activities = [
         {
             description: "Stencil ABU8-424B01 approved",
             timeStamp: "Today"
@@ -91,7 +91,7 @@ export default function DashboardView() {
             <KpiSection kpiCards={kpiCards}/>
             <div className="d-flex justify-content-center">
                 <ExpiringStencils stencils={stencils}/>
-                <RecentActivity />
+                <RecentActivity activities={activities}/>
             </div>
         </div>
     )
