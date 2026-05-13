@@ -60,6 +60,26 @@ export default function DashboardView() {
         }
     ]
 
+    const activity = [
+        {
+            description: "Stencil ABU8-424B01 approved",
+            timeStamp: "Today"
+
+        },
+        {
+            description: "Validation scheduled for BCM022-A",
+            timeStamp: "Yesterday"
+        },
+        {
+            description: "New stencil A17-REWORK registered",
+            timeStamp: "2 days ago"
+        },
+        {
+            description: "User Javier completed validation",
+            timeStamp: "3 days ago"
+        }
+    ]
+
     return (
         <div
             className="p-4 flex-grow-1"
@@ -71,7 +91,7 @@ export default function DashboardView() {
             <KpiSection kpiCards={kpiCards}/>
             <div className="d-flex justify-content-center">
                 <ExpiringStencils stencils={stencils}/>
-                <RecnetActivity />
+                <RecentActivity />
             </div>
         </div>
     )
