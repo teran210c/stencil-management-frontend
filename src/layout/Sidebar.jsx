@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import pegatronLogo from "../assets/Pegatron_Logo.png"
 
 export default function Sidebar() {
@@ -20,11 +21,16 @@ export default function Sidebar() {
                 />
             </div>
             <div className="mb-3 ps-3 ">
-                Dashboard
+                <Link to="/">
+                    Dashboard
+                </Link>
+                
             </div>
 
             <div className="mb-3 ps-3">
-                Stencils
+                <Link to="/stencils">
+                    Stencils
+                </Link>
             </div>
 
             <div className="mb-3 ps-3">

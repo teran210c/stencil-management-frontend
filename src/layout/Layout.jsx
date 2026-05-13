@@ -1,4 +1,6 @@
+import { Routes, Route } from "react-router-dom";
 import DashboardView from "../pages/DashboardView";
+import Stencils from "../pages/Stencils";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
@@ -15,7 +17,10 @@ export default function Layout() {
                 className="d-flex flex-column flex-grow-1"
             >
                 <Topbar />
-                <DashboardView/>
+                <Routes>
+                    <Route path="/" element={<DashboardView/>} />
+                    <Route path="/stencils" element={<Stencils />} />
+                </Routes>
             </div>
 
 
