@@ -1,4 +1,65 @@
+import ExpiringStencils from "../components/ExpiringStencils";
+import KpiSection from "../components/KpiSection";
+import RecnetActivity from "../components/RecentActivity";
+
 export default function DashboardView() {
+    const kpiCards = [
+        {
+            title: "Total Stencils",
+            value: 142
+        },
+        {
+            title: "Approved",
+            value: 118
+        },
+        {
+            title: "Expiring",
+            value: 16
+        },
+        {
+            title: "Expired",
+            value: 8
+        }
+    ]
+
+    const stencils = [
+        {
+            name: "ABU8-424B01(1)",
+            status: "EXPIRING",
+            daysLeft: 1
+        },
+        {
+            name: "ABU8-424B01(2)",
+            status: "EXPIRING",
+            daysLeft: 2
+        },
+        {
+            name: "ABU8-424B01(3)",
+            status: "EXPIRED",
+            daysLeft: -3
+        },
+        {
+            name: "ABU8-424B01(4)",
+            status: "EXPIRING",
+            daysLeft: 1
+        },
+        {
+            name: "ABU8-424B01(5)",
+            status: "EXPIRING",
+            daysLeft: 5
+        },
+        {
+            name: "ABU8-424B01(6)",
+            status: "EXPIRED",
+            daysLeft: -1
+        },
+        {
+            name: "ABU8-424B01(7)",
+            status: "EXPIRING",
+            daysLeft: 3
+        }
+    ]
+
     return (
         <div
             className="p-4 flex-grow-1"
@@ -7,216 +68,10 @@ export default function DashboardView() {
             }}
         >
             <h1>Dashboard</h1>
-            <div
-                className="d-flex pt-4 gap-5 justify-content-center"
-            >
-                <div
-                    className="p-4 text-center rounded-3 shadow-sm"
-                    style={{
-                        backgroundColor: "#FFFFFF",
-                        width: "240px"
-                    }}
-                >
-                    <p
-                        className="text-muted small mb-0"
-                    >
-                        Total Stencils
-                    </p>
-                    <h1
-                        className="display-6 fw-bold"
-                    >
-                        142
-                    </h1>
-                </div>
-                <div
-                    className="p-4 text-center rounded-3 shadow-sm"
-                    style={{
-                        backgroundColor: "#FFFFFF",
-                        width: "240px"
-                    }}
-                >
-                    <p
-                        className="text-muted small mb-0"
-                    >
-                        Approved
-                    </p>
-                    <h1
-                        className="display-6 fw-bold"
-                    >
-                        118
-                    </h1>
-                </div>
-                <div
-                    className="p-4 text-center rounded-3 shadow-sm"
-                    style={{
-                        backgroundColor: "#FFFFFF",
-                        width: "240px"
-                    }}
-                >
-                    <p
-                        className="text-muted small mb-0"
-                    >
-                        Expiring
-                    </p>
-                    <h1
-                        className="display-6 fw-bold"
-                    >
-                        16
-                    </h1>
-                </div>
-                <div
-                    className="p-4 text-center rounded-3 shadow-sm"
-                    style={{
-                        backgroundColor: "#FFFFFF",
-                        width: "240px"
-                    }}
-                >
-                    <p
-                        className="text-muted small mb-0"
-                    >
-                        Expired
-                    </p>
-                    <h1
-                        className="display-6 fw-bold"
-                    >
-                        8
-                    </h1>
-                </div>
-
-            </div>
+            <KpiSection kpiCards={kpiCards}/>
             <div className="d-flex justify-content-center">
-                <div
-                    className="p-4 rounded-3 shadow-sm"
-                    style={{
-                        backgroundColor: "#FFFFFF",
-                        width: "500px",
-                        margin: "30px"
-                    }}
-                >
-                    <h4>
-                        Expiring Stencils
-                    </h4>
-                    <div className="table-responsive">
-                        <table className="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Stencil
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                                <th>
-                                    Days Left
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    ABU8-424B01
-                                </td>
-                                <td>
-                                    EXPIRING
-                                </td>
-                                <td>
-                                    2 Days Left
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    ABU8-424B01
-                                </td>
-                                <td>
-                                    EXPIRING
-                                </td>
-                                <td>
-                                    2 Days Left
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    ABU8-424B01
-                                </td>
-                                <td>
-                                    EXPIRING
-                                </td>
-                                <td>
-                                    2 Days Left
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    ABU8-424B01
-                                </td>
-                                <td>
-                                    EXPIRING
-                                </td>
-                                <td>
-                                    2 Days Left
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    ABU8-424B01
-                                </td>
-                                <td>
-                                    EXPIRING
-                                </td>
-                                <td>
-                                    2 Days Left
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    
-                </div>
-                <div
-                    className="d-flex flex-column p-4 rounded-3 shadow-sm gap-3"
-                    style={{
-                        backgroundColor: "#FFFFFF",
-                        marginTop: "30px"
-                    }}
-                >
-                    <h4>
-                        Recent Activity
-                    </h4>
-                    <div className="d-flex flex-column gap-2">
-                        <div className="border-bottom pb-2">
-                            <div>
-                                Stencil ABU8-424B01 approved
-                            </div>
-                            <div className="text-muted small">
-                                today
-                            </div>
-                        </div>
-                        <div className="border-bottom pb-2">
-                            <div>
-                                Validation scheduled for BCM022-A
-                            </div>
-                            <div className="text-muted small">
-                                yeterday
-                            </div>
-                        </div>
-                        <div className="border-bottom pb-2">
-                            <div>
-                                New stencil A17-REWORK registered
-                            </div>
-                            <div className="text-muted small">
-                                2 days ago
-                            </div>
-                        </div>
-                        <div className="border-bottom pb-2">
-                            <div>
-                                User Javier completed validation
-                            </div>
-                            <div className="text-muted small">
-                                3 days ago
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ExpiringStencils stencils={stencils}/>
+                <RecnetActivity />
             </div>
         </div>
     )
