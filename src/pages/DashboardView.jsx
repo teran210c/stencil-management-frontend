@@ -1,12 +1,45 @@
+import { useEffect, useState } from "react";
 import ExpiringStencils from "../components/ExpiringStencils";
 import KpiSection from "../components/KpiSection";
 import RecentActivity from "../components/RecentActivity";
 
 export default function DashboardView() {
+    const [totalStencils, setTotalStencils] = useState(0)
+
+    useEffect(() => {
+        
+        async function fetchTotal() {
+
+            try {
+                
+                const response = await fetch(
+                    "http://localhost:8080/stencils/total"
+                )
+
+                console.log(response)
+
+                const data = await response.json()
+
+                console.log(data)
+
+                setTotalStencils(data.count)
+
+            } catch (error) {
+
+                console.error("Error fetching total stencils", error)
+                
+            }
+            
+        }
+
+        fetchTotal()
+
+    }, [])
+
     const kpiCards = [
         {
             title: "Total Stencils",
-            value: 142
+            value: totalStencils
         },
         {
             title: "Approved",
@@ -88,7 +121,9 @@ export default function DashboardView() {
             }}
         >
             <h1>Dashboard</h1>
-            <KpiSection kpiCards={kpiCards}/>
+            <KpiSection 
+            kpiCards={kpiCards}
+            />
             <div className="d-flex justify-content-center">
                 <ExpiringStencils stencils={stencils}/>
                 <RecentActivity activities={activities}/>
