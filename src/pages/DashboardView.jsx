@@ -16,11 +16,8 @@ export default function DashboardView() {
                     "http://localhost:8080/stencils/total"
                 )
 
-                console.log(response)
-
                 const data = await response.json()
 
-                console.log(data)
 
                 setTotalStencils(data.count)
 
