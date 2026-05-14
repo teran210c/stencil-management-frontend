@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import DashboardView from "../pages/DashboardView";
-import Stencils from "../pages/Stencils";
+import StencilsView from "../pages/StencilsView";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
@@ -19,7 +19,7 @@ export default function Layout() {
                 <Topbar />
                 <Routes>
                     <Route path="/" element={<DashboardView/>} />
-                    <Route path="/stencils" element={<Stencils />} />
+                    <Route path="/stencils" element={<StencilsView />} />
                 </Routes>
             </div>
 
