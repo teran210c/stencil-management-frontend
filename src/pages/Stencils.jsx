@@ -5,7 +5,7 @@ export default function Stencils() {
         <div
             className="p-4"
         >
-            <h1>
+            <h1 className='mb-4'>
                 Manage and monitor stencil validation
             </h1>
             <form style={{ maxWidth: '350px' }}>
@@ -22,6 +22,62 @@ export default function Stencils() {
                     />
                 </div>
             </form >
+            <div className='mb-4'>
+            <select>
+                <option>Filter</option>
+                <option>Approved</option>
+                <option>Expring</option>
+                <option>Expired</option>
+            </select>
+            </div>
+            <div className="table-responsive">
+                <table className="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Code
+                            </th>
+                            <th>
+                                Model
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Expiration
+                            </th>
+                            <th>
+                                Location
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                ABU8-424B01
+                            </td>
+                            <td>
+                                BCM031
+                            </td>
+                            <td>
+                                APPROVED
+                            </td>
+                            <td>
+                                May 18
+                            </td>
+                            <td>
+                                null
+                            </td>
+                            <td>
+                                VIEW
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div >
     )
 }
