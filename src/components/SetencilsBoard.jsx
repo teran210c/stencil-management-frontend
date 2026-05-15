@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export default function StencilsBoard({ stencils }) {
 
     console.log(stencils)
@@ -52,7 +54,11 @@ export default function StencilsBoard({ stencils }) {
                                     null
                                 </td>
                                 <td>
-                                    VIEW
+                                    <Link
+                                        to={"/details"}
+                                    >
+                                        VIEW
+                                    </Link>                                    
                                 </td>
                             </tr>
                         )

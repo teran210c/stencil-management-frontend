@@ -21,14 +21,18 @@ export default function Sidebar() {
                 />
             </div>
             <div className="mb-3 ps-3 ">
-                <Link to="/">
+                <Link 
+                    to="/"
+                >
                     Dashboard
                 </Link>
                 
             </div>
 
             <div className="mb-3 ps-3">
-                <Link to="/stencils">
+                <Link 
+                    to="/stencils"
+                >
                     Stencils
                 </Link>
             </div>
