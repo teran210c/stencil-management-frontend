@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 export default function StencilsView() {
     const [stencils, setStencils] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
+    const [selectedStatus, setSelectedStatus] = useState('')
 
     useEffect (() => {
         const fetchData = async () => {
@@ -29,8 +30,13 @@ export default function StencilsView() {
         
     }, [])
     
-    const filteredBoard = stencils.filter((stencil) => 
-        stencil.number.toLowerCase().startsWith(searchTerm.toLowerCase())
+    const filteredBoard = stencils.filter((stencil) => {
+        return (
+            stencil.number.toLowerCase().startsWith(searchTerm.toLowerCase()) && (
+               selectedStatus === "" || stencil.status === selectedStatus
+            )
+        )
+    }
     )
 
     return (
@@ -55,11 +61,13 @@ export default function StencilsView() {
                 </div>
             </form >
             <div className='mb-4'>
-            <select>
-                <option>Filter</option>
-                <option>Approved</option>
-                <option>Expring</option>
-                <option>Expired</option>
+            <select
+                onChange={e => setSelectedStatus(e.target.value)}
+            >
+                <option value={""}>Filter</option>
+                <option value={"APPROVED"}>APPROVED</option>
+                <option value={"PENDING"}>PENDING</option>
+                <option value={"EXPIRED"}>EXPIRED</option>
             </select>
             </div>
             <StencilsBoard stencils={filteredBoard}/>
