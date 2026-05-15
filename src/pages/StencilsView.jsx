@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 export default function StencilsView() {
     const [stencils, setStencils] = useState([])
+    const [searchTerm, setSearchTerm] = useState("")
 
     useEffect (() => {
         const fetchData = async () => {
@@ -27,8 +28,10 @@ export default function StencilsView() {
         fetchData()
         
     }, [])
-
-
+    
+    const filteredBoard = stencils.filter((stencil) => 
+        stencil.number.toLowerCase().startsWith(searchTerm.toLowerCase())
+    )
 
     return (
         <div
@@ -37,7 +40,7 @@ export default function StencilsView() {
             <h1 className='mb-4'>
                 Manage and monitor stencil validation
             </h1>
-            <form style={{ maxWidth: '350px' }}>
+            <form style={{ maxWidth: '350px' }} onSubmit={e => e.preventDefault()}>
                 <div className="input-group input-group-sm mb-3">
                     <span className="input-group-text" id="basic-addon1">
                         <i className="bi bi-search"></i>
@@ -45,8 +48,8 @@ export default function StencilsView() {
                     <input
                         type="search"
                         placeholder="Search Stencil"
-                        // value={searchTerm}
-                        // onChange={handleChange}
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
                         className="form-control"
                     />
                 </div>
@@ -59,7 +62,7 @@ export default function StencilsView() {
                 <option>Expired</option>
             </select>
             </div>
-            <StencilsBoard stencils={stencils}/>
+            <StencilsBoard stencils={filteredBoard}/>
         </div >
     )
 }
