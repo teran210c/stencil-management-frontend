@@ -1,4 +1,10 @@
+import { useParams } from "react-router-dom"
+
 export default function StencilDetailsView() {
+    const { stencilId } = useParams()
+
+    console.log(stencilId)
+
     return (
         <div>
             <div>

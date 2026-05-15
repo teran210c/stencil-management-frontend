@@ -55,7 +55,7 @@ export default function StencilsBoard({ stencils }) {
                                 </td>
                                 <td>
                                     <Link
-                                        to={"/details"}
+                                        to={`/details/${s.id}`}
                                     >
                                         VIEW
                                     </Link>                                    
