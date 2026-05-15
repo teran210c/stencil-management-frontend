@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 export default function StencilDetailsView() {
     const { stencilId } = useParams()
@@ -54,7 +54,7 @@ export default function StencilDetailsView() {
                     CurrentValidation
                 </div>
                 <div>
-                    <button type="button" className="btn btn-success">Start Validation</button>
+                    <Link to={`/validation/${stencilId}`} type="button" className="btn btn-success">Start Validation</Link>
                     <button type="button" className="btn btn-secondary">Edit Stencil</button>
                     <button type="button" className="btn btn-secondary">Disable Stencil</button>
                 </div>
