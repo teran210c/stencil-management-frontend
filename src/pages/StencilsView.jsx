@@ -6,34 +6,36 @@ export default function StencilsView() {
     const [stencils, setStencils] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
     const [selectedStatus, setSelectedStatus] = useState('')
+    const [loading, setLoading] = useState(true)
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchData = async () => {
             try {
-            
-            const res = await fetch("http://localhost:8080/stencils")
 
-            const data = await res.json()
+                const res = await fetch("http://localhost:8080/stencils")
 
-            setStencils(data)
+                const data = await res.json()
 
+                setStencils(data)
 
-        } catch (error) {
+                setLoading(false)
 
-            console.error("Error fetchin Stencils information", error)
-            
-        }
+            } catch (error) {
+
+                console.error("Error fetchin Stencils information", error)
+
+            }
 
         }
 
         fetchData()
-        
+
     }, [])
-    
+
     const filteredBoard = stencils.filter((stencil) => {
         return (
             stencil.number.toLowerCase().startsWith(searchTerm.toLowerCase()) && (
-               selectedStatus === "" || stencil.status === selectedStatus
+                selectedStatus === "" || stencil.status === selectedStatus
             )
         )
     }
@@ -61,16 +63,30 @@ export default function StencilsView() {
                 </div>
             </form >
             <div className='mb-4'>
-            <select
-                onChange={e => setSelectedStatus(e.target.value)}
-            >
-                <option value={""}>Filter</option>
-                <option value={"APPROVED"}>APPROVED</option>
-                <option value={"PENDING"}>PENDING</option>
-                <option value={"EXPIRED"}>EXPIRED</option>
-            </select>
+                <select
+                    onChange={e => setSelectedStatus(e.target.value)}
+                >
+                    <option value={""}>Filter</option>
+                    <option value={"APPROVED"}>APPROVED</option>
+                    <option value={"PENDING"}>PENDING</option>
+                    <option value={"EXPIRED"}>EXPIRED</option>
+                </select>
             </div>
-            <StencilsBoard stencils={filteredBoard}/>
+            {
+                loading ? (
+                    <div className="d-flex align-items-center justify-content-center gap-2">
+                        <div
+                            className="spinner-border spinner-border"
+                            style={{ width: "3rem", height: "3rem" }}
+                            role="status"
+                        >
+                        </div>
+                        <span className="text-muted fs-4">Loading stencils...</span>
+                    </div>
+                ) : (
+                    <StencilsBoard stencils={filteredBoard} />
+                )
+            }
         </div >
     )
 }
