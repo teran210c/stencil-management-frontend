@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function StencilDetailsView() {
-    const { stencilId } = useParams()
     const [stencil, setStencil] = useState({})
+    const { stencilId } = useParams()
+    const navigate = useNavigate() 
 
     useEffect(() => {
         const fetchStencil = async () => {
@@ -15,6 +16,7 @@ export default function StencilDetailsView() {
             const data = await res.json()
 
             setStencil(data)
+            
 
         } catch (error) {
 
@@ -27,6 +29,36 @@ export default function StencilDetailsView() {
         fetchStencil()
         
     }, [])
+    
+
+    async function handleStartValidation() {
+
+       try {
+
+        const response = await fetch(`http://localhost:8080/validations/start-validation/${stencilId}`, 
+            {
+                method: "POST"
+            }
+        )
+
+        const data = await response.json()
+
+        console.log(data)
+
+        navigate(`/validation/${stencilId}`)
+
+        
+       } catch (error) {
+
+        console.error("Error starting validation", error)
+
+        alert("Error starting validation")
+        
+       }       
+        
+        
+    }
+
 
     return (
         <div>
@@ -52,7 +84,7 @@ export default function StencilDetailsView() {
                     CurrentValidation
                 </div>
                 <div>
-                    <Link to={`/validation/${stencilId}`} type="button" className="btn btn-success">Start Validation</Link>
+                    <button onClick={handleStartValidation} type="button" className="btn btn-success">Start Validation</button>
                     <button type="button" className="btn btn-secondary">Edit Stencil</button>
                     <button type="button" className="btn btn-secondary">Disable Stencil</button>
                 </div>

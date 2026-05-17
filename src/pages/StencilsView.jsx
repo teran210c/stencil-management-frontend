@@ -1,5 +1,5 @@
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import StencilsBoard from '../components/SetencilsBoard'
+import StencilsBoard from '../components/StencilsBoard'
 import { useEffect, useState } from 'react'
 
 export default function StencilsView() {
