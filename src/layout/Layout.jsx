@@ -23,7 +23,7 @@ export default function Layout() {
                     <Route path="/" element={<DashboardView/>} />
                     <Route path="/stencils" element={<StencilsView />} />
                     <Route path="/details/:stencilId" element={<StencilDetailsView/>} />
-                    <Route path="/validation/:stencilId" element={<StencilValidationView/>} />
+                    <Route path="/validation/:validationId" element={<StencilValidationView/>} />
                 </Routes>
             </div>
 

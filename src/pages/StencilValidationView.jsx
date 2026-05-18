@@ -1,38 +1,56 @@
-import { useEffect, useState } from "react"
+import { Activity, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 export default function StencilValidationView() {
-    const {stencilId} = useParams()
-    const [stencil, setStencil] = useState({})
+    const { validationId } = useParams()
+    const [validation, setValidation] = useState({})
+    const [checklist, setChecklist] = useState({})
 
     useEffect(() => {
 
-        const fetchStencil = async () => {
+        const fetchDetails = async () => {
 
-            const res = await fetch(`http://localhost:8080/stencils/${stencilId}`)
+            const res = await fetch(
+                `http://localhost:8080/validations/${validationId}/details`
+            )
 
             const data = await res.json()
 
-            setStencil(data)
+            setValidation(data.validation)
+
+            setChecklist(data.checklist)
 
         }
 
-        fetchStencil()
+        fetchDetails()
 
     }, [])
 
-    console.log(stencil)
+    console.log(checklist)
 
     return (
         <div>
             ValidationView
-            <div>
-                {stencil.number}
-                {stencil.status}
+            <div className="d-flex p-4 justify-content-between">
+                <div>
+                    {validation.number}
+                    <h4>model</h4>
+                </div>
+                {validation.result}
             </div>
-            <div>
+            <div className="d-flex p-4 justify-content-around">
                 <div>
                     checklist
+                    {checklist.map(activity => {
+                        return (
+                            <div
+                                key={activity.id}
+                            >
+                                {activity.item_name}
+                            </div>
+                        )
+                    } )}
+
                 </div>
                 <div>
                     Validation Summary
