@@ -5,6 +5,7 @@ export default function StencilValidationView() {
     const { validationId } = useParams()
     const [validation, setValidation] = useState({})
     const [checklist, setChecklist] = useState({})
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
 
@@ -16,17 +17,19 @@ export default function StencilValidationView() {
 
             const data = await res.json()
 
+            console.log(data)
+
             setValidation(data.validation)
 
             setChecklist(data.checklist)
+
+            setLoading(false)
 
         }
 
         fetchDetails()
 
     }, [])
-
-    console.log(checklist)
 
     return (
         <div>
@@ -41,7 +44,17 @@ export default function StencilValidationView() {
             <div className="d-flex p-4 justify-content-around">
                 <div>
                     checklist
-                    {checklist.map(activity => {
+                    {loading ? (
+                    <div className="d-flex align-items-center justify-content-center gap-2">
+                        <div
+                            className="spinner-border spinner-border"
+                            style={{ width: "1rem", height: "1rem" }}
+                            role="status"
+                        >
+                        </div>
+                        <span className="text-muted fs-sm">Loading activites...</span>
+                    </div>
+                ) : (checklist.map(activity => {
                         return (
                             <div
                                 key={activity.id}
@@ -49,7 +62,7 @@ export default function StencilValidationView() {
                                 {activity.item_name}
                             </div>
                         )
-                    } )}
+                    } ))}
 
                 </div>
                 <div>

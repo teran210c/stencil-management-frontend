@@ -2,8 +2,6 @@ import { Link } from "react-router-dom"
 
 export default function StencilsBoard({ stencils }) {
 
-    console.log(stencils)
-
     return (
         <div 
             className="table-responsive overflow-y-auto"
