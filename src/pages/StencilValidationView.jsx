@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 export default function StencilValidationView() {
     const { validationId } = useParams()
     const [validation, setValidation] = useState({})
-    const [checklist, setChecklist] = useState({})
+    const [checklist, setChecklist] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -17,8 +17,6 @@ export default function StencilValidationView() {
 
             const data = await res.json()
 
-            console.log(data)
-
             setValidation(data.validation)
 
             setChecklist(data.checklist)
@@ -29,7 +27,24 @@ export default function StencilValidationView() {
 
         fetchDetails()
 
-    }, [])
+    }, [validationId])
+
+    console.log(checklist)
+
+    const handleToogleStatus = (itemId) =>  {
+        setChecklist(prev => {
+            return prev.map(item => {
+                if (item.id === itemId) {
+                    return {
+                        ...item,
+                        result: item.result === 'PASSED' ? 'PENDING' : 'PASSED'
+                    }
+                    
+                }
+                return item
+            })
+        })
+    }
 
     return (
         <div>
@@ -55,11 +70,26 @@ export default function StencilValidationView() {
                         <span className="text-muted fs-sm">Loading activites...</span>
                     </div>
                 ) : (checklist.map(activity => {
+                    const isPassed = activity.result === 'PASSED'
+                    console.log(activity.result)
                         return (
                             <div
+                                className="d-flex gap-3"
                                 key={activity.id}
                             >
                                 {activity.item_name}
+                                <div
+                                     onClick={() => handleToogleStatus(activity.id)}
+                                    className="d-flex justify-content-center align-items-center text-white"
+                                    style={{ 
+                                        backgroundColor: isPassed ? "#10e93b" : "#dbe910",
+                                        height: "1.25rem",
+                                        width: "1.25rem",
+
+                                    }}
+                                >
+                                    <span className="fs-6 fw-bolder">{isPassed ? "✓" : "-"}</span>
+                                </div>
                             </div>
                         )
                     } ))}
