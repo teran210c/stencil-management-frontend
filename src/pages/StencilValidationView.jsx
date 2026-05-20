@@ -29,21 +29,44 @@ export default function StencilValidationView() {
 
     }, [validationId])
 
-    console.log(checklist)
+    const handleToogleStatus = async (itemId) => {
+        const itemToUpdate = checklist.find(item => item.id === itemId)
 
-    const handleToogleStatus = (itemId) =>  {
-        setChecklist(prev => {
-            return prev.map(item => {
-                if (item.id === itemId) {
-                    return {
-                        ...item,
-                        result: item.result === 'PASSED' ? 'PENDING' : 'PASSED'
-                    }
-                    
+        const newResult =
+            itemToUpdate.result === "PASSED"
+                ? "PENDING"
+                : "PASSED"
+
+        setChecklist(prev =>
+            prev.map(item =>
+                item.id === itemId
+                    ? { ...item, result: newResult }
+                    : item
+            )
+        )
+
+        try {
+
+            await fetch(
+                `http://localhost:8080/validations/checklist/${itemId}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        result: newResult
+                    })
                 }
-                return item
-            })
-        })
+            )
+
+        } catch (error) {
+
+            console.error("Error updating checklist item", error)
+
+        }
+
+
     }
 
     return (
@@ -60,18 +83,17 @@ export default function StencilValidationView() {
                 <div>
                     checklist
                     {loading ? (
-                    <div className="d-flex align-items-center justify-content-center gap-2">
-                        <div
-                            className="spinner-border spinner-border"
-                            style={{ width: "1rem", height: "1rem" }}
-                            role="status"
-                        >
+                        <div className="d-flex align-items-center justify-content-center gap-2">
+                            <div
+                                className="spinner-border spinner-border"
+                                style={{ width: "1rem", height: "1rem" }}
+                                role="status"
+                            >
+                            </div>
+                            <span className="text-muted fs-sm">Loading activites...</span>
                         </div>
-                        <span className="text-muted fs-sm">Loading activites...</span>
-                    </div>
-                ) : (checklist.map(activity => {
-                    const isPassed = activity.result === 'PASSED'
-                    console.log(activity.result)
+                    ) : (checklist.map(activity => {
+                        const isPassed = activity.result === 'PASSED'
                         return (
                             <div
                                 className="d-flex gap-3"
@@ -79,12 +101,13 @@ export default function StencilValidationView() {
                             >
                                 {activity.item_name}
                                 <div
-                                     onClick={() => handleToogleStatus(activity.id)}
+                                    onClick={() => handleToogleStatus(activity.id)}
                                     className="d-flex justify-content-center align-items-center text-white"
-                                    style={{ 
+                                    style={{
                                         backgroundColor: isPassed ? "#10e93b" : "#dbe910",
                                         height: "1.25rem",
                                         width: "1.25rem",
+                                        cursor: "pointer"
 
                                     }}
                                 >
@@ -92,12 +115,17 @@ export default function StencilValidationView() {
                                 </div>
                             </div>
                         )
-                    } ))}
+                    }))}
 
                 </div>
                 <div>
                     Validation Summary
                 </div>
+            </div>
+            <div>
+                <button type="button" className="btn btn-primary">
+                    Save Draft
+                </button>
             </div>
         </div>
     )
