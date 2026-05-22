@@ -1,5 +1,5 @@
 import { Activity, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 export default function StencilValidationView() {
     const { validationId } = useParams()
@@ -156,13 +156,23 @@ export default function StencilValidationView() {
                 </div>
             </div>
             <div>
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => completeValidation(validation.id)}
-                >
-                    Complete Validation
-                </button>
+                {validation.result === "PENDING" ?( 
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => completeValidation(validation.id)}
+                    >
+                        Complete Validation
+                    </button> ) : (
+                    <Link
+                        className="btn btn-primary"
+                        to={`/`}
+                    >
+                        Retrun Home
+                    </Link>
+                )
+
+                }
             </div>
         </div>
     )
