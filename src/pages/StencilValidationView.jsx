@@ -86,6 +86,9 @@ export default function StencilValidationView() {
 
             const data = await res.json()
 
+            setValidation(data.validation)
+            setChecklist(data.checklist)
+
         } catch (error) {
 
             console.error("Error at completing validation", error)

@@ -43,6 +43,7 @@ export default function StencilDetailsView() {
 
         const data = await response.json()
 
+
         navigate(`/validation/${data.validation}`)
 
         
