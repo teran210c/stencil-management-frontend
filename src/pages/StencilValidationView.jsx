@@ -69,15 +69,40 @@ export default function StencilValidationView() {
 
     }
 
+    const completeValidation = async (validationId) => {
+
+        try {
+            const res = await fetch(`http://localhost:8080/validations/${validationId}/complete`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        result: "PASSED"
+                    })
+                }
+            )
+
+            const data = await res.json()
+
+        } catch (error) {
+
+            console.error("Error at completing validation", error)
+            alert("Error at completing validation")
+
+        }
+    }
+
     return (
         <div>
             ValidationView
-            <div className="d-flex p-4 justify-content-between">
-                <div>
-                    {validation.number}
-                    <h4>model</h4>
+            <div className="d-flex flex-column p-4">
+                {validation.number}
+                <div className="d-flex justify-content-evenly">
+                    <h4 className="flex-grow-1 me-5">model</h4>
+                    <h4 className="flex-grow-1 me-5">{validation.result}</h4>
                 </div>
-                {validation.result}
             </div>
             <div className="d-flex p-4 justify-content-around">
                 <div>
@@ -92,39 +117,51 @@ export default function StencilValidationView() {
                             </div>
                             <span className="text-muted fs-sm">Loading activites...</span>
                         </div>
-                    ) : (checklist.map(activity => {
-                        const isPassed = activity.result === 'PASSED'
-                        return (
-                            <div
-                                className="d-flex gap-3"
-                                key={activity.id}
-                            >
-                                {activity.item_name}
-                                <div
-                                    onClick={() => handleToogleStatus(activity.id)}
-                                    className="d-flex justify-content-center align-items-center text-white"
-                                    style={{
-                                        backgroundColor: isPassed ? "#10e93b" : "#dbe910",
-                                        height: "1.25rem",
-                                        width: "1.25rem",
-                                        cursor: "pointer"
+                    ) : (
+                        checklist.map(activity => {
+                            // Evaluamos dinámicamente el estilo para PASSED, FAILED o PENDING
+                            let bgColor = "#dbe910" // Amarillo por defecto (PENDING)
+                            let iconClass = "bi bi-dash" // Guion por defecto
 
-                                    }}
-                                >
-                                    <span className="fs-6 fw-bolder">{isPassed ? "✓" : "-"}</span>
+                            if (activity.result === 'PASSED') {
+                                bgColor = "#10e93b" // Verde
+                                iconClass = "bi bi-check-lg" // Check de Bootstrap Icons
+                            } else if (activity.result === 'FAILED') {
+                                bgColor = "#e91010" // Rojo
+                                iconClass = "bi bi-x-lg" // X de Bootstrap Icons
+                            }
+
+                            return (
+                                <div className="d-flex gap-3 align-items-center mb-2" key={activity.id}>
+                                    {activity.item_name}
+                                    <div
+                                        onClick={() => handleToogleStatus(activity.id)}
+                                        className="d-flex justify-content-center align-items-center text-white"
+                                        style={{
+                                            backgroundColor: bgColor,
+                                            height: "1.25rem",
+                                            width: "1.25rem",
+                                            cursor: "pointer"
+                                        }}
+                                    >
+                                        <i className={`${iconClass} fs-6 fw-bolder`}></i>
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    }))}
-
+                            )
+                        })
+                    )}
                 </div>
                 <div>
                     Validation Summary
                 </div>
             </div>
             <div>
-                <button type="button" className="btn btn-primary">
-                    Save Draft
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => completeValidation(validation.id)}
+                >
+                    Complete Validation
                 </button>
             </div>
         </div>
