@@ -7,6 +7,35 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
 export default function Layout() {
+
+     useEffect(() => {
+
+        const refreshStatuses = async () => {
+
+            try {
+
+                await fetch(
+                    "http://localhost:8080/validations/refresh-statuses",
+                    {
+                        method: "PUT"
+                    }
+                )
+
+            } catch (error) {
+
+                console.error(
+                    "Error refreshing stencil statuses",
+                    error
+                )
+
+            }
+
+        }
+
+        refreshStatuses()
+
+    }, [])
+    
     return (
         <div
             className="d-flex flex-grow-1"

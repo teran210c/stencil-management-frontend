@@ -67,7 +67,7 @@ export default function StencilsView() {
                     onChange={e => setSelectedStatus(e.target.value)}
                 >
                     <option value={""}>Filter</option>
-                    <option value={"APPROVED"}>APPROVED</option>
+                    <option value={"PASSED"}>PASSED</option>
                     <option value={"PENDING"}>PENDING</option>
                     <option value={"EXPIRED"}>EXPIRED</option>
                 </select>

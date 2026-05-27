@@ -71,6 +71,7 @@ export default function StencilValidationView() {
 
     const completeValidation = async (validationId) => {
 
+
         try {
             const res = await fetch(`http://localhost:8080/validations/${validationId}/complete`,
                 {
@@ -93,6 +94,8 @@ export default function StencilValidationView() {
 
         }
     }
+
+   
 
     return (
         <div>
