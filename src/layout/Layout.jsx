@@ -5,6 +5,7 @@ import StencilDetailsView from "../pages/StencilDetailsView";
 import StencilValidationView from "../pages/StencilValidationView";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import { useEffect, useState } from "react"
 
 export default function Layout() {
 
@@ -35,7 +36,6 @@ export default function Layout() {
         refreshStatuses()
 
     }, [])
-    
     return (
         <div
             className="d-flex flex-grow-1"
