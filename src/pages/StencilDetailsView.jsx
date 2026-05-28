@@ -5,7 +5,7 @@ export default function StencilDetailsView() {
     const [stencil, setStencil] = useState({})
     const { stencilId } = useParams()
     const navigate = useNavigate()
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchStencil = async () => {
@@ -18,7 +18,7 @@ export default function StencilDetailsView() {
 
                 setStencil(data)
 
-                setLoading(true)
+                setLoading(false)
 
 
             } catch (error) {
@@ -63,98 +63,116 @@ export default function StencilDetailsView() {
 
     async function handleResumeValidation() {
 
-    try {
+        try {
 
-        const res = await fetch(
-            `http://localhost:8080/validations/stencil/${stencilId}/latest`
-        )
+            const res = await fetch(
+                `http://localhost:8080/validations/stencil/${stencilId}/latest`
+            )
 
-        const validation = await res.json()
+            const validation = await res.json()
 
-        navigate(`/validation/${validation.id}`)
+            navigate(`/validation/${validation.id}`)
 
-    } catch (error) {
+        } catch (error) {
 
-        console.error(
-            "Error fetching latest validation",
-            error
-        )
+            console.error(
+                "Error fetching latest validation",
+                error
+            )
+
+        }
 
     }
 
-}
-
-    { loading && console.log(stencil) }
-
     return (
-        <div>
-            <div>
-                {stencil.number}
-            </div>
-            <div>
-                <div>
-                    StencilInfoCard
-                    <ul>
-                        <li>{stencil.vendor}</li>
-                        <li>Location</li>
-                        <li>Expiration Date</li>
-                        <li>Cycle Days</li>
-                    </ul>
-                </div>
-                <div>
-                    ValidationHistory
-                </div>
-            </div>
-            <div>
-                <div>
-                    CurrentValidation
-                </div>
-                <div>
-                    {stencil.status === "PENDING" ? (
+        <>
+            {
+                loading ? (
 
-                        <button
-                            onClick={handleStartValidation}
-                            type="button"
-                            className="btn btn-success"
+                    <div className="d-flex align-items-center justify-content-center gap-2">
+                        <div
+                            className="spinner-border spinner-border"
+                            style={{ width: "3rem", height: "3rem" }}
+                            role="status"
                         >
-                            Start Validation
-                        </button>
+                        </div>
+                        <span className="text-muted fs-4">Loading stencils...</span>
+                    </div>
 
-                    ) : stencil.status === "FAILED" ? (
+                ) : (
+                    <div>
+                        <div>
+                            {stencil.number}
+                        </div>
+                        <div>
+                            <div>
+                                StencilInfoCard
+                                <ul>
+                                    <li>{stencil.vendor}</li>
+                                    <li>Location</li>
+                                    <li>Expiration Date</li>
+                                    <li>Cycle Days</li>
+                                </ul>
+                            </div>
+                            <div>
+                                ValidationHistory
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                CurrentValidation
+                            </div>
+                            <div>
+                                {stencil.status === "PENDING" ? (
 
-                        <button
-                            onClick={handleResumeValidation}
-                            type="button"
-                            className="btn btn-warning"
-                        >
-                            Start Revalidation
-                        </button>
+                                    <button
+                                        onClick={handleStartValidation}
+                                        type="button"
+                                        className="btn btn-success"
+                                    >
+                                        Start Validation
+                                    </button>
 
-                    ) : stencil.status === "PASSED" ? (
+                                ) : stencil.status === "FAILED" ? (
 
-                        <button
-                            onClick={() => navigate(-1)}
-                            type="button"
-                            className="btn btn-primary"
-                        >
-                            Return
-                        </button>
+                                    <button
+                                        onClick={handleResumeValidation}
+                                        type="button"
+                                        className="btn btn-warning"
+                                    >
+                                        Start Revalidation
+                                    </button>
 
-                    ) : (
+                                ) : stencil.status === "PASSED" ? (
 
-                        <button
-                            onClick={handleStartValidation}
-                            type="button"
-                            className="btn btn-success"
-                        >
-                            Start Validation
-                        </button>
+                                    <button
+                                        onClick={handleResumeValidation}
+                                        type="button"
+                                        className="btn btn-primary"
+                                    >
+                                        View Validation
+                                    </button>
 
-                    )}
-                    <button type="button" className="btn btn-secondary">Edit Stencil</button>
-                    <button type="button" className="btn btn-secondary">Disable Stencil</button>
-                </div>
-            </div>
-        </div>
+                                ) : (
+
+                                    <button
+                                        onClick={handleStartValidation}
+                                        type="button"
+                                        className="btn btn-success"
+                                    >
+                                        Start Validation
+                                    </button>
+
+                                )}
+                                <button type="button" className="btn btn-secondary">Edit Stencil</button>
+                                <button type="button" className="btn btn-secondary">Disable Stencil</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        </>
+
     )
 }
+

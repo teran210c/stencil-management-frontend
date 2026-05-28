@@ -95,7 +95,7 @@ export default function StencilValidationView() {
         }
     }
 
-   
+
 
     return (
         <div>
@@ -136,15 +136,18 @@ export default function StencilValidationView() {
 
                             return (
                                 <div className="d-flex gap-3 align-items-center mb-2" key={activity.id}>
-                                    {activity.item_name}
+                                    <span style={{ opacity: validation.result === "PASSED" ? 0.5 : 1 }}>
+                                        {activity.item_name}
+                                    </span>
                                     <div
-                                        onClick={() => handleToogleStatus(activity.id)}
+                                        onClick={validation.result === "PASSED" ? null : () => handleToogleStatus(activity.id)}
                                         className="d-flex justify-content-center align-items-center text-white"
                                         style={{
                                             backgroundColor: bgColor,
                                             height: "1.25rem",
                                             width: "1.25rem",
-                                            cursor: "pointer"
+                                            cursor: validation.result === "PASSED" ? "not-allowed" : "pointer",
+                                            opacity: validation.result === "PASSED" ? 0.4 : 1
                                         }}
                                     >
                                         <i className={`${iconClass} fs-6 fw-bolder`}></i>
@@ -159,14 +162,23 @@ export default function StencilValidationView() {
                 </div>
             </div>
             <div>
-                {validation.result === "PENDING" ?( 
+                {validation.result === "PENDING" ? (
                     <button
                         type="button"
                         className="btn btn-primary"
                         onClick={() => completeValidation(validation.id)}
                     >
                         Complete Validation
-                    </button> ) : (
+                    </button>
+                ) : validation.result === "FAILED" ? (
+                    <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={() => completeValidation(validation.id)}
+                    >
+                        Revalidate Stencil
+                    </button>
+                ) : (
                     <Link
                         className="btn btn-primary"
                         to={`/`}
