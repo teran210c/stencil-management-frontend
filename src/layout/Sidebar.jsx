@@ -38,15 +38,27 @@ export default function Sidebar() {
             </div>
 
             <div className="mb-3 ps-3">
-                Validations
+                <Link 
+                    to="/validations"
+                >
+                    Validations
+                </Link>
             </div>
 
             <div className="mb-3 ps-3">
-                Timeline
+                <Link 
+                    to="/timeline"
+                >
+                    Timeline
+                </Link>
             </div>
 
             <div className="mb-3 ps-3">
-                Users
+                <Link 
+                    to="/users"
+                >
+                    Users
+                </Link>
             </div>
         </div>
     )

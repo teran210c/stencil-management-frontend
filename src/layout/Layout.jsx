@@ -6,6 +6,9 @@ import StencilValidationView from "../pages/StencilValidationView";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import { useEffect, useState } from "react"
+import ValidationsView from "../pages/ValidationsView";
+import TimelineView from "../pages/TimelineView";
+import UsersView from "../pages/UsersView";
 
 export default function Layout() {
 
@@ -53,6 +56,9 @@ export default function Layout() {
                     <Route path="/stencils" element={<StencilsView />} />
                     <Route path="/details/:stencilId" element={<StencilDetailsView/>} />
                     <Route path="/validation/:validationId" element={<StencilValidationView/>} />
+                    <Route path="/validations" element={<ValidationsView/>} />
+                    <Route path="/timeline" element={<TimelineView/>} />
+                    <Route path="/users" element={<UsersView/>} />
                 </Routes>
             </div>
 
