@@ -1,6 +1,6 @@
 import KpiCard from "../components/KpiCard";
 
-export default function KpiSection({ kpiCards }) {
+export default function KpiSection({ kpiCards, loading }) {
 
     return (
         <div
@@ -12,6 +12,7 @@ export default function KpiSection({ kpiCards }) {
                         key={index}
                         title={kpiCard.title}
                         value={kpiCard.value}
+                        loading={loading}
                         
                     />
                 )

@@ -4,109 +4,59 @@ import KpiSection from "../components/KpiSection";
 import RecentActivity from "../components/RecentActivity";
 
 export default function DashboardView() {
-    const [totalStencils, setTotalStencils] = useState(0)
+    const [dashboardData, setDashboardData] = useState({})
+    const [expiringStencils, setExpiringStencils] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [activities, setActivities] = useState([])
 
     useEffect(() => {
-        
-        async function fetchTotal() {
+
+        async function fetchData() {
 
             try {
-                
-                const response = await fetch(
-                    "http://localhost:8080/stencils/total"
-                )
 
-                const data = await response.json()
+                const [dashboardRes, expiringRes, activityRes] = await Promise.all([
+                    fetch("http://localhost:8080/stencils/dashboard"),
+                    fetch("http://localhost:8080/stencils/expiring"),
+                    fetch("http://localhost:8080/stencils/recent-activity")
+                ])
 
+                const dashboardData = await dashboardRes.json()
+                const expiringData = await expiringRes.json()
+                const activityData = await activityRes.json()
 
-                setTotalStencils(data.count)
+                setDashboardData(dashboardData)
+                setExpiringStencils(expiringData)
+                setActivities(activityData)
+                setLoading(false)
 
             } catch (error) {
 
-                console.error("Error fetching total stencils", error)
-                
+                console.error(error)
+
             }
-            
         }
 
-        fetchTotal()
+        fetchData()
 
     }, [])
 
     const kpiCards = [
         {
             title: "Total Stencils",
-            value: totalStencils
+            value: dashboardData.total
         },
         {
             title: "Approved",
-            value: 118
+            value: dashboardData.approved
         },
         {
             title: "Expiring",
-            value: 16
+            value: dashboardData.expiring
         },
         {
             title: "Expired",
-            value: 8
-        }
-    ]
-
-    const stencils = [
-        {
-            name: "ABU8-424B01(1)",
-            status: "EXPIRING",
-            daysLeft: 1
-        },
-        {
-            name: "ABU8-424B01(2)",
-            status: "EXPIRING",
-            daysLeft: 2
-        },
-        {
-            name: "ABU8-424B01(3)",
-            status: "EXPIRED",
-            daysLeft: -3
-        },
-        {
-            name: "ABU8-424B01(4)",
-            status: "EXPIRING",
-            daysLeft: 1
-        },
-        {
-            name: "ABU8-424B01(5)",
-            status: "EXPIRING",
-            daysLeft: 5
-        },
-        {
-            name: "ABU8-424B01(6)",
-            status: "EXPIRED",
-            daysLeft: -1
-        },
-        {
-            name: "ABU8-424B01(7)",
-            status: "EXPIRING",
-            daysLeft: 3
-        }
-    ]
-
-    const activities = [
-        {
-            description: "Stencil ABU8-424B01 approved",
-            timeStamp: "Today"
-
-        },
-        {
-            description: "Validation scheduled for BCM022-A",
-            timeStamp: "Yesterday"
-        },
-        {
-            description: "New stencil A17-REWORK registered",
-            timeStamp: "2 days ago"
-        },
-        {
-            description: "User Javier completed validation",
-            timeStamp: "3 days ago"
+            value: dashboardData.expired
         }
     ]
 
@@ -115,12 +65,19 @@ export default function DashboardView() {
             className="p-4 flex-grow-1"
         >
             <h1>Dashboard</h1>
-            <KpiSection 
-            kpiCards={kpiCards}
+            <KpiSection
+                kpiCards={kpiCards}
+                loading={loading}
             />
             <div className="d-flex justify-content-center">
-                <ExpiringStencils stencils={stencils}/>
-                <RecentActivity activities={activities}/>
+                <ExpiringStencils
+                    stencils={expiringStencils}
+                    loading={loading}
+                />
+                <RecentActivity 
+                    activities={activities}
+                    loading={loading}
+                />
             </div>
         </div>
     )
