@@ -3,9 +3,13 @@ import { Link } from "react-router-dom"
 export default function StencilsBoard({ stencils }) {
 
     return (
-        <div 
-            className="table-responsive overflow-y-auto"
-            style={{ maxHeight: '60vh' }}
+        <div
+            className="table-responsive mx-auto overflow-y-auto"
+            style={{
+                maxHeight: "60vh",
+                minWidth:"900px",
+                maxWidth: "1300px"
+            }}
         >
             <table className="table table-striped table-hover">
                 <thead>
@@ -56,7 +60,7 @@ export default function StencilsBoard({ stencils }) {
                                         to={`/details/${s.id}`}
                                     >
                                         VIEW
-                                    </Link>                                    
+                                    </Link>
                                 </td>
                             </tr>
                         )

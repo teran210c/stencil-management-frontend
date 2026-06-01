@@ -1,57 +1,60 @@
 export default function UsersView() {
 
     return (
-        <div className="p-4">
+        <div className="container py-4">
 
-            <h1 className="mb-4">
-                Users
-            </h1>
 
-            <div className="card shadow-sm">
+                <h1 className="mb-4">
+                    Users
+                </h1>
 
-                <div className="card-body">
+                <div className="card shadow-sm">
 
-                    <table className="table">
+                    <div className="card-body">
+                        <div className="table-responsive">
+                            <table className="table table-hover">
 
-                        <thead>
+                                <thead>
 
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Role</th>
-                            </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                    </tr>
 
-                        </thead>
+                                </thead>
 
-                        <tbody>
+                                <tbody>
 
-                            <tr>
-                                <td>1</td>
-                                <td>Javier</td>
-                                <td>ADMIN</td>
-                            </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Javier</td>
+                                        <td>ADMIN</td>
+                                    </tr>
 
-                            <tr>
-                                <td>2</td>
-                                <td>Technician 1</td>
-                                <td>TECHNICIAN</td>
-                            </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Technician 1</td>
+                                        <td>TECHNICIAN</td>
+                                    </tr>
 
-                            <tr>
-                                <td>3</td>
-                                <td>Technician 2</td>
-                                <td>TECHNICIAN</td>
-                            </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Technician 2</td>
+                                        <td>TECHNICIAN</td>
+                                    </tr>
 
-                        </tbody>
+                                </tbody>
 
-                    </table>
+                            </table>
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
-
-        </div>
+   
     )
 
 }

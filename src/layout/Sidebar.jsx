@@ -7,7 +7,8 @@ export default function Sidebar() {
             className="text-white vh-100 p3"
             style={{ 
                 backgroundColor: "#282924",
-                fontFamily: "Inter, sans-serif"
+                fontFamily: "Inter, sans-serif",
+                minHeight: "100%"
             }}
         >
             <div className="text-center mb-4">
