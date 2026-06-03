@@ -42,13 +42,16 @@ export default function Layout() {
     return (
         <div
             className="d-flex flex-grow-1"
-            style={{ backgroundColor: "#F1F5F9" }}
+            style={{
+                minHeight: "100vh"
+            }}
         >
-            <div style={{ width: "220px" }}>
+            <div style={{ width: "200px" }}>
                 <Sidebar />
             </div>
             <div
                 className="d-flex flex-column flex-grow-1"
+                style={{ backgroundColor: "#F1F5F9" }}
             >
                 <Topbar />
                 <Routes>

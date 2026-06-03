@@ -95,7 +95,8 @@ export default function ValidationsView() {
                                         </td>
 
                                         <td>
-                                            {validation.validation_date}
+                                            {new Date(validation.validation_date)
+                                                .toLocaleDateString()}
                                         </td>
 
                                         <td>

@@ -4,7 +4,7 @@ import pegatronLogo from "../assets/Pegatron_Logo.png"
 export default function Sidebar() {
     return (
         <div 
-            className="text-white vh-100 p3"
+            className="text-white p3"
             style={{ 
                 backgroundColor: "#282924",
                 fontFamily: "Inter, sans-serif",
@@ -16,12 +16,14 @@ export default function Sidebar() {
                     src={pegatronLogo} 
                     alt="Pegatron Logo"
                     style={{ 
-                        width: "140px", 
+                        width: "130px", 
                         filter: "invert(1)"
                     }} 
                 />
             </div>
-            <div className="mb-3 ps-3 ">
+            <div 
+                className="mb-3 ps-3 "
+            >
                 <Link 
                     to="/"
                 >
