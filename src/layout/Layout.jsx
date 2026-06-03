@@ -42,9 +42,6 @@ export default function Layout() {
     return (
         <div
             className="d-flex flex-grow-1"
-            style={{
-                minHeight: "100vh"
-            }}
         >
             <div style={{ width: "200px" }}>
                 <Sidebar />
